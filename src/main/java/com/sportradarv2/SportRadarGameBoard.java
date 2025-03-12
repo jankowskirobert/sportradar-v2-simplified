@@ -1,17 +1,24 @@
 package com.sportradarv2;
 
-import java.util.List;
+import java.util.*;
 
 public class SportRadarGameBoard {
-    public static SportRadarGameBoard emptyBoard() {
-        return new SportRadarGameBoard();
+
+    private final Map<String, List<ScoreUpdate>> gamesList = new HashMap<>();
+
+    public void registerMatch(String homeTeam, String awayTeam) {
+        String key = gameKey(homeTeam, awayTeam);
+
+        ScoreUpdate defaultScore = new ScoreUpdate(0, 0);
+        List<ScoreUpdate> scoreUpdateList = List.of(defaultScore);
+        gamesList.put(key, new ArrayList<>(scoreUpdateList));
     }
 
-    public void registerMatch(Team homeTeam, Team awayTeam) {
-
+    public boolean isGameInProgress(String homeTeam, String awayTeam) {
+        return gamesList.containsKey(gameKey(homeTeam, awayTeam));
     }
 
-    public List<GameSummary> getSummary() {
-        return List.of();
+    private static String gameKey(String homeTeam, String awayTeam) {
+        return homeTeam + awayTeam;
     }
 }
