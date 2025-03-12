@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class SportRadarBoardGameTests {
+public class SportRadarGameBoardTests {
     static final String MEXICO = "Mexico";
     static final String CANADA = "Canada";
     static final String SPAIN = "Spain";
