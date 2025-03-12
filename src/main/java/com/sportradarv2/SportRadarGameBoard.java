@@ -6,12 +6,13 @@ public class SportRadarGameBoard {
 
     private final Map<String, List<ScoreUpdate>> gamesList = new HashMap<>();
 
-    public void registerMatch(String homeTeam, String awayTeam) {
+    public boolean registerMatch(String homeTeam, String awayTeam) {
         String key = gameKey(homeTeam, awayTeam);
 
         ScoreUpdate defaultScore = new ScoreUpdate(0, 0);
         List<ScoreUpdate> scoreUpdateList = List.of(defaultScore);
-        gamesList.put(key, new ArrayList<>(scoreUpdateList));
+        List<ScoreUpdate> existing = gamesList.putIfAbsent(key, new ArrayList<>(scoreUpdateList));
+        return existing == null;
     }
 
     public boolean isGameInProgress(String homeTeam, String awayTeam) {
@@ -20,5 +21,9 @@ public class SportRadarGameBoard {
 
     private static String gameKey(String homeTeam, String awayTeam) {
         return homeTeam + awayTeam;
+    }
+
+    public boolean finishMatch(String homeTeamName, String awayTeamName) {
+        return gamesList.remove(gameKey(homeTeamName, awayTeamName)) != null;
     }
 }

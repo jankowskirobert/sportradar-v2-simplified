@@ -19,4 +19,20 @@ public class SportRadarBoardGameTests {
         Assertions.assertTrue(sportRadarGameBoard.isGameInProgress(homeTeamName, awayTeamName));
     }
 
+    @Test
+    public void shouldFinishMatchInProgress() {
+        // given
+        String homeTeamName = "Mexico";
+        String awayTeamName = "Canada";
+        SportRadarGameBoard sportRadarGameBoard = new SportRadarGameBoard();
+        sportRadarGameBoard.registerMatch(homeTeamName, awayTeamName);
+
+        // when
+        boolean hasBeenFinished = sportRadarGameBoard.finishMatch(homeTeamName, awayTeamName);
+
+        // then
+        Assertions.assertTrue(hasBeenFinished);
+        Assertions.assertFalse(sportRadarGameBoard.isGameInProgress(homeTeamName, awayTeamName));
+    }
+
 }
